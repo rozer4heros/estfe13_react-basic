@@ -1,4 +1,5 @@
 export default function MyArticle({ title, desc }) {
+  console.log("MyArticle Render");
   return (
     <section>
       <article>
