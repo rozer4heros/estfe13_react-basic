@@ -64,20 +64,18 @@ function App() {
     );
   } else if (mode === "update") {
     const selected = content.find((c) => c.id === id);
-    if (selected) {
-      _title = selected.title;
-      _desc = selected.desc;
-      _article = (
-        <UpdateArticle
-          _title={_title}
-          _desc={_desc}
-          onSubmit={(_title, _desc) => {
-            // Submit된 내용 반영하기 (미구현)
-            setMode("read");
-          }}
-        />
-      );
-    }
+    if (!selected) return null;
+
+    _article = (
+      <UpdateArticle
+        _title={selected.title}
+        _desc={selected.desc}
+        onSubmit={(_title, _desc) => {
+          setContent((prev) => prev.map((p) => (p.id === id ? { ...p, title: _title, desc: _desc } : p)));
+          setMode("read");
+        }}
+      />
+    );
   }
 
   const handleChangeModeWelcome = useCallback(() => {

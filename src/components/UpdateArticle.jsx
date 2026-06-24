@@ -1,5 +1,16 @@
+import { useState } from "react";
+
 function UpdateArticle({ _title, _desc, onSubmit }) {
   console.log("UpdateArticle render");
+  const [newTitle, setNewTitle] = useState(_title);
+  const [newDesc, setNewDesc] = useState(_desc);
+
+  const handleChangeTitle = (e) => {
+    setNewTitle(e.target.value);
+  };
+  const handleChangeDesc = (e) => {
+    setNewDesc(e.target.value);
+  };
 
   return (
     <>
@@ -8,16 +19,16 @@ function UpdateArticle({ _title, _desc, onSubmit }) {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit(e.target.title.value, e.target.desc.value);
+          onSubmit(newTitle, newDesc);
         }}
       >
         <div>
           <label htmlFor="title">title</label>
-          <input type="text" name="title" id="title" defaultValue={_title} />
+          <input type="text" name="title" id="title" value={newTitle} onChange={handleChangeTitle} />
         </div>
         <div>
           <label htmlFor="desc">desc</label>
-          <textarea name="desc" id="desc" defaultValue={_desc}></textarea>
+          <textarea name="desc" id="desc" value={newDesc} onChange={handleChangeDesc}></textarea>
         </div>
         <button>Submit</button>
       </form>
