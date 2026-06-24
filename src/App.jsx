@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import MyHeader from "./components/MyHeader.jsx";
 import Nav from "./components/Nav.jsx";
 import MyArticle from "./components/MyArticle.jsx";
@@ -65,7 +65,7 @@ function App() {
   //       _desc = selected.desc;
   //       _article = <MyArticle title={_title} desc={_desc} />;
   //     } else {
-  //       console.error("해당하는");
+  //       console.error("id에 해당하는 content를 찾을 수 없습니다.");
   //       _article = <MyArticle title="오류!" desc="해당 Article을 찾을 수 없습니다." />;
   //     }
   //     break;
@@ -83,9 +83,14 @@ function App() {
   //     break;
   //   default:
   //     console.error("mode에 잘못된 값이 할당되었습니다.");
-  //     _article = <MyArticle title="오류!" desc="mode에 잘못된 값이 할당되었습니다." />;
+  //     _article = <MyArticle title="오류!" desc="잘못된 모드가 선택되었습니다." />;
   //     break;
   // }
+
+  const handleChangeModeRead = useCallback((_id) => {
+    setMode("read");
+    setId(_id);
+  }, []);
 
   return (
     <>
@@ -96,13 +101,7 @@ function App() {
           setMode("welcome");
         }}
       />
-      <Nav
-        data={content}
-        onChangeMode={(_id) => {
-          setMode("read");
-          setId(_id);
-        }}
-      />
+      <Nav data={content} onChangeMode={handleChangeModeRead} />
       {_article}
       <hr />
       <Controls
