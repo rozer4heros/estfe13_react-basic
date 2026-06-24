@@ -1,6 +1,7 @@
+import { memo } from "react";
 import Style from "./MyHeader.module.css";
 
-export default function MyHeader({ title, desc, onChangeMode }) {
+const MyHeader = memo(function MyHeader({ title, desc, onChangeMode }) {
   console.log("MyHeader render");
   return (
     <header>
@@ -15,4 +16,6 @@ export default function MyHeader({ title, desc, onChangeMode }) {
       <p>{desc}</p>
     </header>
   );
-}
+});
+
+export default MyHeader;

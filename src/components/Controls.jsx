@@ -1,4 +1,6 @@
-export default function Controls({ onChangeModeCreate }) {
+import { memo } from "react";
+
+const Controls = memo(function Controls({ onChangeModeCreate }) {
   console.log("Controls render");
 
   return (
@@ -12,4 +14,6 @@ export default function Controls({ onChangeModeCreate }) {
       </button>
     </div>
   );
-}
+});
+
+export default Controls;

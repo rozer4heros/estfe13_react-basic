@@ -1,4 +1,6 @@
-export default function Nav({ data, onChangeMode }) {
+import { memo } from "react";
+
+const Nav = memo(function Nav({ data, onChangeMode }) {
   console.log("Nav render");
 
   const list = data.map((d) => (
@@ -24,4 +26,6 @@ export default function Nav({ data, onChangeMode }) {
       </nav>
     </>
   );
-}
+});
+
+export default Nav;

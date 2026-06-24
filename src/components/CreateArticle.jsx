@@ -1,4 +1,6 @@
-export default function CreateArticle({ onSubmit }) {
+import { memo } from "react";
+
+const CreateArticle = memo(function CreateArticle({ onSubmit }) {
   console.log("CreateArticle render");
 
   return (
@@ -23,4 +25,6 @@ export default function CreateArticle({ onSubmit }) {
       </form>
     </>
   );
-}
+});
+
+export default CreateArticle;

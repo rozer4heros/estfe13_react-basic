@@ -1,4 +1,6 @@
-export default function MyArticle({ title, desc }) {
+import { memo } from "react";
+
+const MyArticle = memo(function MyArticle({ title, desc }) {
   console.log("MyArticle Render");
   return (
     <section>
@@ -8,4 +10,6 @@ export default function MyArticle({ title, desc }) {
       </article>
     </section>
   );
-}
+});
+
+export default MyArticle;
