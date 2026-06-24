@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function UpdateArticle({ title, desc, difficulty, onSubmit }) {
+function UpdateArticle({ title, desc, level, onSubmit }) {
   console.log("UpdateArticle render");
 
   // const [newTitle, setNewTitle] = useState(title);
@@ -8,7 +8,7 @@ function UpdateArticle({ title, desc, difficulty, onSubmit }) {
   const [content, setContent] = useState({
     title: title,
     desc: desc,
-    difficulty: difficulty,
+    level: level,
   });
 
   // const handleChangeTitle = (e) => {
@@ -18,7 +18,7 @@ function UpdateArticle({ title, desc, difficulty, onSubmit }) {
   //   setNewDesc(e.target.value);
   // };
   const handleChange = (e) => {
-    const { name, value, difficulty } = e.target;
+    const { name, value } = e.target;
     setContent((prev) => {
       return {
         ...prev,
@@ -37,7 +37,7 @@ function UpdateArticle({ title, desc, difficulty, onSubmit }) {
           if (!content.title) {
             alert("제목이 필요합니다!");
           } else {
-            onSubmit(content.title, content.desc, content.difficulty);
+            onSubmit(content.title, content.desc, content.level);
           }
         }}
       >
@@ -50,8 +50,8 @@ function UpdateArticle({ title, desc, difficulty, onSubmit }) {
           <textarea name="desc" id="desc" value={content.desc} onChange={handleChange}></textarea>
         </div>
         <div>
-          <label htmlFor="difficulty">difficulty</label>
-          <input type="text" name="difficulty" id="difficulty" value={content.difficulty} onChange={handleChange} />
+          <label htmlFor="level">level</label>
+          <input type="text" name="level" id="level" value={content.level} onChange={handleChange} />
         </div>
         <button>Submit</button>
       </form>

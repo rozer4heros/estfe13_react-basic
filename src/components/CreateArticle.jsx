@@ -11,7 +11,7 @@ function CreateArticle({ onSubmit }) {
           if (!e.target.title.value) {
             alert("제목이 필요합니다!");
           } else {
-            onSubmit(e.target.title.value, e.target.desc.value, e.target.difficulty.value);
+            onSubmit(e.target.title.value, e.target.desc.value, e.target.level.value);
           }
         }}
       >
@@ -24,8 +24,8 @@ function CreateArticle({ onSubmit }) {
           <textarea name="desc" id="desc"></textarea>
         </div>
         <div>
-          <label htmlFor="difficulty">difficulty</label>
-          <input type="text" name="difficulty" id="difficulty" />
+          <label htmlFor="level">level</label>
+          <input type="text" name="level" id="level" />
         </div>
         <button>Submit</button>
       </form>
