@@ -30,7 +30,6 @@ function App() {
   let _article = null;
 
   const selectedArticle = useMemo(() => content.find((item) => item.id === id), [content, id]);
-  console.log(selectedArticle);
 
   const handleChangeModeWelcome = useCallback(() => {
     setMode("welcome");
@@ -47,7 +46,7 @@ function App() {
       setContent((prev) => prev.filter((item) => item.id !== id));
     }
     setMode("welcome");
-  }, []);
+  }, [id]);
 
   if (mode === "welcome") {
     _title = welcome.title;
