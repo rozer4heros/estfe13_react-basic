@@ -5,6 +5,7 @@ import Nav from "./components/Nav.jsx";
 import MyArticle from "./components/MyArticle.jsx";
 import Controls from "./components/Controls.jsx";
 import CreateArticle from "./components/CreateArticle.jsx";
+import UpdateArticle from "./components/UpdateArticle.jsx";
 
 function App() {
   console.log("App render");
@@ -31,13 +32,22 @@ function App() {
   if (mode === "welcome") {
     _title = welcome.title;
     _desc = welcome.desc;
-    _article = <MyArticle title={_title} desc={_desc} />;
+    _article = <MyArticle title={_title} desc={_desc} mode={mode} />;
   } else if (mode === "read") {
     const selected = content.find((c) => c.id === id);
     if (selected) {
       _title = selected.title;
       _desc = selected.desc;
-      _article = <MyArticle title={_title} desc={_desc} />;
+      _article = (
+        <MyArticle
+          title={_title}
+          desc={_desc}
+          mode={mode}
+          onChangeModeUpdate={() => {
+            setMode("update");
+          }}
+        />
+      );
     }
   } else if (mode === "create") {
     _article = (
@@ -52,42 +62,23 @@ function App() {
         }}
       />
     );
+  } else if (mode === "update") {
+    const selected = content.find((c) => c.id === id);
+    if (selected) {
+      _title = selected.title;
+      _desc = selected.desc;
+      _article = (
+        <UpdateArticle
+          _title={_title}
+          _desc={_desc}
+          onSubmit={(_title, _desc) => {
+            // Submit된 내용 반영하기 (미구현)
+            setMode("read");
+          }}
+        />
+      );
+    }
   }
-
-  // switch (mode) {
-  //   case "welcome":
-  //     _title = welcome.title;
-  //     _desc = welcome.desc;
-  //     _article = <MyArticle title={_title} desc={_desc} />;
-  //     break;
-  //   case "read":
-  //     const selected = content.find((c) => c.id === id);
-  //     if (selected) {
-  //       _title = selected.title;
-  //       _desc = selected.desc;
-  //       _article = <MyArticle title={_title} desc={_desc} />;
-  //     } else {
-  //       console.error("id에 해당하는 content를 찾을 수 없습니다.");
-  //       _article = <MyArticle title="오류!" desc="해당 Article을 찾을 수 없습니다." />;
-  //     }
-  //     break;
-  //   case "create":
-  //     _article = (
-  //       <CreateArticle
-  //         onSubmit={(_title, _desc) => {
-  //           const newId = maxId + 1;
-  //           let _content = content.concat({ id: newId, title: _title, desc: _desc });
-  //           setContent(_content);
-  //           setMaxId(newId);
-  //         }}
-  //       />
-  //     );
-  //     break;
-  //   default:
-  //     console.error("mode에 잘못된 값이 할당되었습니다.");
-  //     _article = <MyArticle title="오류!" desc="잘못된 모드가 선택되었습니다." />;
-  //     break;
-  // }
 
   const handleChangeModeWelcome = useCallback(() => {
     setMode("welcome");
