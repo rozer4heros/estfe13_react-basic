@@ -42,18 +42,18 @@ function UpdateArticle({ title, desc, level, onSubmit }) {
         }}
       >
         <div>
-          <label htmlFor="title">title</label>
+          <label htmlFor="title">제목: </label>
           <input type="text" name="title" id="title" value={content.title} onChange={handleChange} />
         </div>
         <div>
-          <label htmlFor="desc">desc</label>
+          <label htmlFor="desc">설명: </label>
           <textarea name="desc" id="desc" value={content.desc} onChange={handleChange}></textarea>
         </div>
         <div>
-          <label htmlFor="level">level</label>
+          <label htmlFor="level">난이도: </label>
           <input type="text" name="level" id="level" value={content.level} onChange={handleChange} />
         </div>
-        <button>Submit</button>
+        <button>수정</button>
       </form>
     </>
   );

@@ -16,18 +16,18 @@ function CreateArticle({ onSubmit }) {
         }}
       >
         <div>
-          <label htmlFor="title">title</label>
+          <label htmlFor="title">제목: </label>
           <input type="text" name="title" id="title" />
         </div>
         <div>
-          <label htmlFor="desc">desc</label>
+          <label htmlFor="desc">설명: </label>
           <textarea name="desc" id="desc"></textarea>
         </div>
         <div>
-          <label htmlFor="level">level</label>
+          <label htmlFor="level">난이도: </label>
           <input type="text" name="level" id="level" />
         </div>
-        <button>Submit</button>
+        <button>생성</button>
       </form>
     </>
   );
