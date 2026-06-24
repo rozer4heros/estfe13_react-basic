@@ -1,9 +1,9 @@
 import { useState } from "react";
 
-function UpdateArticle({ _title, _desc, onSubmit }) {
+function UpdateArticle({ title, desc, onSubmit }) {
   console.log("UpdateArticle render");
-  const [newTitle, setNewTitle] = useState(_title);
-  const [newDesc, setNewDesc] = useState(_desc);
+  const [newTitle, setNewTitle] = useState(title);
+  const [newDesc, setNewDesc] = useState(desc);
 
   const handleChangeTitle = (e) => {
     setNewTitle(e.target.value);

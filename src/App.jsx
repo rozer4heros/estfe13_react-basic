@@ -29,6 +29,23 @@ function App() {
   let _desc = null;
   let _article = null;
 
+  const handleChangeModeWelcome = useCallback(() => {
+    setMode("welcome");
+  }, []);
+  const handleChangeModeRead = useCallback((_id) => {
+    setMode("read");
+    setId(_id);
+  }, []);
+  const handleChangeModeCreate = useCallback(() => {
+    setMode("create");
+  }, []);
+  const handleDelete = useCallback(() => {
+    if (window.confirm("정말 삭제할까요?")) {
+      setContent((prev) => prev.filter((item) => item.id !== id));
+    }
+    setMode("welcome");
+  });
+
   if (mode === "welcome") {
     _title = welcome.title;
     _desc = welcome.desc;
@@ -46,6 +63,7 @@ function App() {
           onChangeModeUpdate={() => {
             setMode("update");
           }}
+          onDelete={handleDelete}
         />
       );
     }
@@ -65,11 +83,10 @@ function App() {
   } else if (mode === "update") {
     const selected = content.find((c) => c.id === id);
     if (!selected) return null;
-
     _article = (
       <UpdateArticle
-        _title={selected.title}
-        _desc={selected.desc}
+        title={selected.title}
+        desc={selected.desc}
         onSubmit={(_title, _desc) => {
           setContent((prev) => prev.map((p) => (p.id === id ? { ...p, title: _title, desc: _desc } : p)));
           setMode("read");
@@ -77,17 +94,6 @@ function App() {
       />
     );
   }
-
-  const handleChangeModeWelcome = useCallback(() => {
-    setMode("welcome");
-  }, []);
-  const handleChangeModeRead = useCallback((_id) => {
-    setMode("read");
-    setId(_id);
-  }, []);
-  const handleChangeModeCreate = useCallback(() => {
-    setMode("create");
-  }, []);
 
   return (
     <>

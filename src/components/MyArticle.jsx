@@ -1,6 +1,6 @@
 import { memo } from "react";
 
-const MyArticle = memo(function MyArticle({ title, desc, mode, onChangeModeUpdate }) {
+const MyArticle = memo(function MyArticle({ title, desc, mode, onChangeModeUpdate, onDelete }) {
   console.log("MyArticle Render");
   return (
     <section>
@@ -17,7 +17,13 @@ const MyArticle = memo(function MyArticle({ title, desc, mode, onChangeModeUpdat
           >
             수정
           </button>
-          <button>삭제</button>
+          <button
+            onClick={() => {
+              onDelete();
+            }}
+          >
+            삭제
+          </button>
         </>
       )}
     </section>
