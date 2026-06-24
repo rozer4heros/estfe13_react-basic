@@ -20,6 +20,7 @@ function App() {
     { id: 2, title: "재사용이 가능한 UI 개발", desc: "컴포넌트 기반으로 동일한 UI를 효율적으로 재사용 가능" },
     { id: 3, title: "애니메이션 구현", desc: "상태 변화에 따른 자연스럽고 동적인 화면 효과 구현" },
   ]);
+  const [maxId, setMaxId] = useState(content.length);
 
   const welcome = { title: "welcome", desc: "Welcome to react" };
 
@@ -39,17 +40,50 @@ function App() {
       _article = <MyArticle title={_title} desc={_desc} />;
     }
   } else if (mode === "create") {
-    _article = <CreateArticle />;
+    _article = (
+      <CreateArticle
+        onSubmit={(_title, _desc) => {
+          const newId = maxId + 1;
+          let _content = content.concat({ id: newId, title: _title, desc: _desc });
+          setContent(_content);
+          setMaxId(newId);
+        }}
+      />
+    );
   }
 
   // switch (mode) {
   //   case "welcome":
+  //     _title = welcome.title;
+  //     _desc = welcome.desc;
+  //     _article = <MyArticle title={_title} desc={_desc} />;
   //     break;
   //   case "read":
+  //     const selected = content.find((c) => c.id === id);
+  //     if (selected) {
+  //       _title = selected.title;
+  //       _desc = selected.desc;
+  //       _article = <MyArticle title={_title} desc={_desc} />;
+  //     } else {
+  //       console.error("해당하는");
+  //       _article = <MyArticle title="오류!" desc="해당 Article을 찾을 수 없습니다." />;
+  //     }
   //     break;
-  //   case create:
+  //   case "create":
+  //     _article = (
+  //       <CreateArticle
+  //         onSubmit={(_title, _desc) => {
+  //           const newId = maxId + 1;
+  //           let _content = content.concat({ id: newId, title: _title, desc: _desc });
+  //           setContent(_content);
+  //           setMaxId(newId);
+  //         }}
+  //       />
+  //     );
   //     break;
   //   default:
+  //     console.error("mode에 잘못된 값이 할당되었습니다.");
+  //     _article = <MyArticle title="오류!" desc="mode에 잘못된 값이 할당되었습니다." />;
   //     break;
   // }
 

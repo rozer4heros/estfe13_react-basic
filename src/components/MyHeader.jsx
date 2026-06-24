@@ -1,3 +1,5 @@
+import Style from "./MyHeader.module.css";
+
 export default function MyHeader({ title, desc, onChangeMode }) {
   console.log("MyHeader render");
   return (
