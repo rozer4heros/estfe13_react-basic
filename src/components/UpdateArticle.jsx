@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function UpdateArticle({ title, desc, onSubmit }) {
+function UpdateArticle({ title, desc, difficulty, onSubmit }) {
   console.log("UpdateArticle render");
 
   // const [newTitle, setNewTitle] = useState(title);
@@ -8,6 +8,7 @@ function UpdateArticle({ title, desc, onSubmit }) {
   const [content, setContent] = useState({
     title: title,
     desc: desc,
+    difficulty: difficulty,
   });
 
   // const handleChangeTitle = (e) => {
@@ -17,7 +18,7 @@ function UpdateArticle({ title, desc, onSubmit }) {
   //   setNewDesc(e.target.value);
   // };
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, difficulty } = e.target;
     setContent((prev) => {
       return {
         ...prev,
@@ -33,7 +34,11 @@ function UpdateArticle({ title, desc, onSubmit }) {
         action=""
         onSubmit={(e) => {
           e.preventDefault();
-          onSubmit(content.title, content.desc);
+          if (!content.title) {
+            alert("제목이 필요합니다!");
+          } else {
+            onSubmit(content.title, content.desc, content.difficulty);
+          }
         }}
       >
         <div>
@@ -43,6 +48,10 @@ function UpdateArticle({ title, desc, onSubmit }) {
         <div>
           <label htmlFor="desc">desc</label>
           <textarea name="desc" id="desc" value={content.desc} onChange={handleChange}></textarea>
+        </div>
+        <div>
+          <label htmlFor="difficulty">difficulty</label>
+          <input type="text" name="difficulty" id="difficulty" value={content.difficulty} onChange={handleChange} />
         </div>
         <button>Submit</button>
       </form>
