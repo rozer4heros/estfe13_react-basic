@@ -3,6 +3,8 @@ import { useState } from "react";
 import MyHeader from "./components/MyHeader.jsx";
 import Nav from "./components/Nav.jsx";
 import MyArticle from "./components/MyArticle.jsx";
+import Controls from "./components/Controls.jsx";
+import CreateArticle from "./components/CreateArticle.jsx";
 
 function App() {
   console.log("App render");
@@ -23,17 +25,33 @@ function App() {
 
   let _title = null;
   let _desc = null;
+  let _article = null;
 
   if (mode === "welcome") {
     _title = welcome.title;
     _desc = welcome.desc;
+    _article = <MyArticle title={_title} desc={_desc} />;
   } else if (mode === "read") {
     const selected = content.find((c) => c.id === id);
     if (selected) {
       _title = selected.title;
       _desc = selected.desc;
+      _article = <MyArticle title={_title} desc={_desc} />;
     }
+  } else if (mode === "create") {
+    _article = <CreateArticle />;
   }
+
+  // switch (mode) {
+  //   case "welcome":
+  //     break;
+  //   case "read":
+  //     break;
+  //   case create:
+  //     break;
+  //   default:
+  //     break;
+  // }
 
   return (
     <>
@@ -51,7 +69,13 @@ function App() {
           setId(_id);
         }}
       />
-      <MyArticle title={_title} desc={_desc} />
+      {_article}
+      <hr />
+      <Controls
+        onChangeModeCreate={() => {
+          setMode("create");
+        }}
+      />
     </>
   );
 }
