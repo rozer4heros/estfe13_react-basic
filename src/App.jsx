@@ -47,6 +47,8 @@ function App() {
           let _content = content.concat({ id: newId, title: _title, desc: _desc });
           setContent(_content);
           setMaxId(newId);
+          setId(newId);
+          setMode("read");
         }}
       />
     );
@@ -87,28 +89,24 @@ function App() {
   //     break;
   // }
 
+  const handleChangeModeWelcome = useCallback(() => {
+    setMode("welcome");
+  }, []);
   const handleChangeModeRead = useCallback((_id) => {
     setMode("read");
     setId(_id);
   }, []);
+  const handleChangeModeCreate = useCallback(() => {
+    setMode("create");
+  }, []);
 
   return (
     <>
-      <MyHeader
-        title={subject.title}
-        desc={subject.desc}
-        onChangeMode={() => {
-          setMode("welcome");
-        }}
-      />
+      <MyHeader title={subject.title} desc={subject.desc} onChangeMode={handleChangeModeWelcome} />
       <Nav data={content} onChangeMode={handleChangeModeRead} />
       {_article}
       <hr />
-      <Controls
-        onChangeModeCreate={() => {
-          setMode("create");
-        }}
-      />
+      <Controls onChangeModeCreate={handleChangeModeCreate} />
     </>
   );
 }
