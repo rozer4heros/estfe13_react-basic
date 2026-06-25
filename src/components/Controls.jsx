@@ -6,6 +6,7 @@ const Controls = memo(function Controls({ onChangeModeCreate }) {
   return (
     <div className="menu">
       <button
+        className="btn btn-primary"
         onClick={(e) => {
           onChangeModeCreate();
         }}

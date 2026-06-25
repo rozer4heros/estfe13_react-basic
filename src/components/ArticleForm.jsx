@@ -42,7 +42,7 @@ function ArticleForm({ title, desc = "", level = "", onSubmit }) {
           <label htmlFor="level">난이도: </label>
           <input type="text" name="level" id="level" value={content.level} onChange={handleChange} />
         </div>
-        <button>{title ? "수정" : "생성"}</button>
+        <button className="btn btn-secondary btn-sm">{title ? "수정" : "생성"}</button>
       </form>
     </>
   );
