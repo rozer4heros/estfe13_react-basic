@@ -1,5 +1,5 @@
-import Style from "./MyHeader.module.css";
 import { memo } from "react";
+import Style from "./MyHeader.module.css";
 
 const MyHeader = memo(function MyHeader({ title, desc, onChangeMode }) {
   console.log("MyHeader render");

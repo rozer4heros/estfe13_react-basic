@@ -1,13 +1,13 @@
 import { memo } from "react";
 
-const Nav = memo(function Nav({ data, onChangeMode }) {
+const Nav = memo(function Nav({ id, data, onChangeMode }) {
   console.log("Nav render");
 
   const list = data.map((d) => (
-    <li key={d.id}>
+    <li key={d.id} className="nav-item">
       <a
         href={`/${d.id}`}
-        data-id={d.id}
+        className={`nav-link ${d.id === id ? "active" : ""}`}
         onClick={(e) => {
           e.preventDefault();
           onChangeMode(d.id);
@@ -21,7 +21,7 @@ const Nav = memo(function Nav({ data, onChangeMode }) {
   return (
     <>
       <nav>
-        <ul>{list}</ul>
+        <ul className="nav flex-column nav-pills">{list}</ul>
       </nav>
     </>
   );

@@ -1,6 +1,6 @@
-import "./App.css";
 import { useState, useCallback, useMemo } from "react";
 import { v4 as uuidv4 } from "uuid";
+// import "./App.css";
 import MyHeader from "./components/MyHeader.jsx";
 import Nav from "./components/Nav.jsx";
 import MyArticle from "./components/MyArticle.jsx";
@@ -102,7 +102,7 @@ function App() {
   return (
     <>
       <MyHeader title={subject.title} desc={subject.desc} onChangeMode={handleChangeModeWelcome} />
-      <Nav data={content} onChangeMode={handleChangeModeRead} />
+      <Nav id={id} data={content} onChangeMode={handleChangeModeRead} />
       {renderArticle()}
       <hr />
       <Controls onChangeModeCreate={handleChangeModeCreate} />
