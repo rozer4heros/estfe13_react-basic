@@ -1,12 +1,12 @@
-import { memo } from "react";
 import Style from "./MyHeader.module.css";
+import { memo } from "react";
 
 const MyHeader = memo(function MyHeader({ title, desc, onChangeMode }) {
   console.log("MyHeader render");
   return (
     <header>
       <h1
-        className="logo"
+        className={Style.logo}
         onClick={() => {
           onChangeMode();
         }}

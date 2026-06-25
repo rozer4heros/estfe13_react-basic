@@ -1,4 +1,4 @@
-h1:hover {
+.logo:hover {
   text-decoration: underline;
   cursor: pointer;
 }
