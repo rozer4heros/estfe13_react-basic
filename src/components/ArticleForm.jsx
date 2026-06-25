@@ -1,4 +1,22 @@
-function ArticleForm({ onSubmit }) {
+import { useState } from "react";
+
+function ArticleForm({ title, desc = "", level = "", onSubmit }) {
+  const [content, setContent] = useState({
+    title: title ? title : "",
+    desc: desc,
+    level: level,
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setContent((prev) => {
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+  };
+
   return (
     <>
       <form
@@ -14,17 +32,17 @@ function ArticleForm({ onSubmit }) {
       >
         <div>
           <label htmlFor="title">제목: </label>
-          <input type="text" name="title" id="title" />
+          <input type="text" name="title" id="title" value={content.title} onChange={handleChange} />
         </div>
         <div>
           <label htmlFor="desc">설명: </label>
-          <textarea name="desc" id="desc"></textarea>
+          <textarea name="desc" id="desc" value={content.desc} onChange={handleChange}></textarea>
         </div>
         <div>
           <label htmlFor="level">난이도: </label>
-          <input type="text" name="level" id="level" />
+          <input type="text" name="level" id="level" value={content.level} onChange={handleChange} />
         </div>
-        <button>생성</button>
+        <button>{title ? "수정" : "생성"}</button>
       </form>
     </>
   );
