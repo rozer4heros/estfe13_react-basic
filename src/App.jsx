@@ -28,7 +28,7 @@ function App() {
     { id: "3", title: "애니메이션 구현", desc: "상태 변화에 따른 자연스럽고 동적인 화면 효과 구현", level: "3" },
   ]);
 
-  const welcome = { title: "welcome", desc: "Welcome to react" };
+  const welcome = { title: "Welcome", desc: "Welcome to react" };
 
   let _title = null;
   let _desc = null;
@@ -53,62 +53,57 @@ function App() {
       setMode("welcome");
     }
   };
+  const handleSubmitCreate = (_title, _desc, _level) => {
+    const newId = uuidv4();
+    let _content = content.concat({ id: newId, title: _title, desc: _desc, level: _level });
+    setContent(_content);
+    setId(newId);
+    setMode("read");
+  };
+  const handleSubmitUpdate = (_title, _desc, _level) => {
+    setContent((prev) => prev.map((p) => (p.id === id ? { ...p, title: _title, desc: _desc, level: _level } : p)));
+    setMode("read");
+  };
 
-  if (mode === "welcome") {
-    _title = welcome.title;
-    _desc = welcome.desc;
-    _article = <MyArticle title={_title} desc={_desc} />;
-  } else if (mode === "read") {
-    if (selectedArticle) {
-      _title = selectedArticle.title;
-      _desc = selectedArticle.desc;
-      _level = selectedArticle.level;
-      _article = (
-        <MyArticle
-          title={_title}
-          desc={_desc}
-          level={_level}
-          onChangeModeUpdate={() => {
-            setMode("update");
-          }}
-          onDelete={handleDelete}
-        />
-      );
+  const renderArticle = () => {
+    switch (mode) {
+      case "read":
+        return (
+          <MyArticle
+            title={selectedArticle?.title ?? "Title"}
+            desc={selectedArticle?.desc}
+            level={selectedArticle?.level}
+            onChangeModeUpdate={() => {
+              setMode("update");
+            }}
+            onDelete={handleDelete}
+          />
+        );
+        break;
+      case "create":
+        return <CreateArticle onSubmit={handleSubmitCreate} />;
+        break;
+      case "update":
+        return (
+          <UpdateArticle
+            title={selectedArticle?.title ?? "Title"}
+            desc={selectedArticle?.desc}
+            level={selectedArticle?.level}
+            onSubmit={handleSubmitUpdate}
+          />
+        );
+        break;
+      default: // case "welcome":
+        if (mode !== "welcome") console.error(`mode에 잘못된 값 "${mode}"가 할당됨`);
+        return <MyArticle title={welcome.title} desc={welcome.desc} />;
     }
-  } else if (mode === "create") {
-    _article = (
-      <CreateArticle
-        onSubmit={(_title, _desc, _level) => {
-          const newId = uuidv4();
-          let _content = content.concat({ id: newId, title: _title, desc: _desc, level: _level });
-          setContent(_content);
-          setId(newId);
-          setMode("read");
-        }}
-      />
-    );
-  } else if (mode === "update") {
-    if (!selectedArticle) return null;
-    _article = (
-      <UpdateArticle
-        title={selectedArticle.title}
-        desc={selectedArticle.desc}
-        level={selectedArticle.level}
-        onSubmit={(_title, _desc, _level) => {
-          setContent((prev) =>
-            prev.map((p) => (p.id === id ? { ...p, title: _title, desc: _desc, level: _level } : p)),
-          );
-          setMode("read");
-        }}
-      />
-    );
-  }
+  };
 
   return (
     <>
       <MyHeader title={subject.title} desc={subject.desc} onChangeMode={handleChangeModeWelcome} />
       <Nav data={content} onChangeMode={handleChangeModeRead} />
-      {_article}
+      {renderArticle()}
       <hr />
       <Controls onChangeModeCreate={handleChangeModeCreate} />
     </>
